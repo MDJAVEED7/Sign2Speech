@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Recognition | Let Hands Speak</title>
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+    <div class="bg">
+        <div class="layer">
+            <!-- Navigation Bar -->
+            <div class="navbar">
+                <a href="{{ url_for('index') }}" class="logo-text text-warning">
+                    <img src="{{ url_for('static', filename='img/logo.png') }}" alt="logo" class="logo">Sign2Speech
+                </a>
+                <ul>
+                    <li><a href="{{ url_for('index') }}" class="text-warning">Home</a></li>
+                    <li><a href="{{ url_for('about') }}" class="text-warning">About</a></li>
+                    <li><a data-target="#exampleModal" role="button" class="text-warning" data-toggle="modal">Help</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Content -->
+            <div class="container" style="background-color:rgba(235, 171, 23, 0.3);">
+                <img src="{{ url_for('video') }}" width="65%" height="65%" />
+
+                <!-- Text box for displaying the output -->
+                <input type="text" id="outputTextBox" class="form-control" placeholder="Output Text" readonly />
+
+                <!-- Button to trigger dynamic text update and text-to-speech -->
+                <button onclick="updateAndSpeakText()" class="btn btn-primary">Update and Speak Text</button>
+
+                <a href="{{ url_for('close') }}" class="btn btn-danger">Close</a>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <ul>
+                <li><a href="" target="_blank"><img src="{{ url_for('static', filename='img/icon-fb.png') }}" alt="logo"></a>
+                </li>
+                <!-- Add other social media icons as needed -->
+            </ul>
+        </footer>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">ASL Gestures</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img src="{{ url_for('static', filename='img/asl.png') }}" alt="logo" width="103%" height="120%">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript for text-to-speech and Socket.IO integration -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <script>
+        const socket = io(); // Connect to the Socket.IO server
+
+        // Function to handle the emitted 'update' event
+        socket.on('update', function (data) {
+            const detectedLabel = data.detectedLabel;
+
+            // Update the output text box
+            document.getElementById("outputTextBox").value = detectedLabel;
+        });
+
+        // Function to emit the 'update' event to the server
+        function updateAndSpeakText() {
+            // Replace this line with your actual logic to get recognized label from hand gestures
+            const recognizedLabel = getRecognizedLabel();
+
+            // Emit the detected label to the server
+            socket.emit('update', { detectedLabel: recognizedLabel });
+        }
+
+        // Replace this function with your actual logic to get recognized label from hand gestures
+        function getRecognizedLabel() {
+            // Assuming you have the 'classifier' object from cvzone
+            const imgWhite = getImageFromYourHandTrackingSystem();  // Replace this with your logic to obtain the image
+            const { prediction, index } = classifier.getPrediction(imgWhite, draw=false);
+
+            // Assuming 'labels' is an array defined in your Flask application
+            const labels = ["see", "HELLO", "Any Question", "superb", "rocked", "like", "dislike", "help", "one", "Right"];
+
+            const recognizedLabel = labels[index];
+            return recognizedLabel;
+        }
+
+        // Replace this function with your logic to obtain the image from your hand tracking system
+        function getImageFromYourHandTrackingSystem() {
+            // Replace this with your logic to obtain the image
+            // For example, you might have a canvas element or other image source
+            // Make sure to convert it to the required format for classifier.getPrediction
+            const canvas = document.getElementById('yourCanvasId'); // Replace 'yourCanvasId' with the actual canvas ID
+            const ctx = canvas.getContext('2d');
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+            // Convert the imageData to the format expected by classifier.getPrediction
+            const imgWhite = new cv2.Mat(canvas.height, canvas.width, cv2.CV_8UC3);
+            imgWhite.data.set(imageData.data);
+
+            return imgWhite;
+        }
+    </script>
+</body>
+
+</html>
