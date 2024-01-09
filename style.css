@@ -1,0 +1,189 @@
+@charset "utf-8";
+/* CSS Document */
+* {
+  margin: 0;
+  padding: 0;
+}
+a {
+  text-decoration: none;
+  color: #ffffff;
+  text-transform: uppercase;
+  padding: 0 2px;
+  transition: 0.5s all ease-in-out;
+}
+a:hover {
+  color: rgb(244, 244, 244);
+  transform: scale(1.1);
+}
+/* ------------------Backgorund------------------ */
+.slider {
+  background-image: url('../img/5.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 100vh;
+  animation: slide 20s ease infinite;
+}
+.bg {
+  background-image: url('../img/5.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+/* ------------------Navigation Bar------------------ */
+.navbar {
+  width: 90%;
+  margin: auto;
+  padding: 32px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.navbar .logo {
+  cursor: pointer;
+  padding: 0 10px;
+}
+.logo-text {
+  font-size: 16px;
+  letter-spacing: 1px;
+  padding-bottom: 4px;
+  color: #f1c602;
+}
+.navbar ul li {
+  list-style: none;
+  display: inline-block;
+  margin: 0 20px;
+}
+.navbar ul li a {
+  text-decoration: none;
+  color: #f1c602;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  font-size: 12px;
+}
+.navbar ul li a:hover {
+  border-radius: 20px 0px 20px 20px;
+  border: 1px solid rgb(224, 187, 1);
+}
+/* ------------------Content------------------ */
+.content {
+  color: #fff;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+.layer {
+  color: #fff;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.75);
+  margin-right: 30px;
+}
+.containers {
+  color: #fcfcfd;
+  position: absolute;
+  left: 12%;
+  top: 48%;
+  transform: translateY(-50%);
+  z-index: 2;
+  text-align: justify;
+}
+.containers p {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  
+  margin: 10px 10px;
+}
+.containers a {
+  text-decoration: none;
+  color: #ff0000;
+  padding: 10px 18px;
+  border: 1px solid rgb(255, 50, 50);
+  border-radius: 0px 20px 20px 20px;
+  font-size: 14px;
+  font-weight: bold;
+}
+/*.containers a:hover {
+ background-color: rgba(0, 0, 0, 0.808);
+}*/
+.containers h1 {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 36px;
+  letter-spacing: 1px;
+  margin: 10px 0 10px;
+  line-height: 50px;
+}
+.card{
+  background-color: rgba(54, 51, 51, 0.548);
+}
+.webcam-start-stop {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  padding: 5px 0;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.webcam-start-stop > a {
+  text-decoration: unset;
+  color: #000;
+  background: #fff;
+  padding: 10px 20px;
+}
+
+/*------------------ Footer------------------ */
+footer {
+  width: 85%;
+  padding: 10px 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: absolute;
+  bottom: 0;
+}
+footer ul li {
+  list-style: none;
+  display: inline-block;
+  margin: 0 10px;
+}
+footer ul li a img {
+  transition: 0.4s all ease-in-out;
+}
+footer ul li a img:hover {
+  transform: scale(1.2);
+}
+
+.video-box {
+  display: flex;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  padding: 2% 4%;
+}
+.video-box video {
+  border-radius: 20px 0px 20px 0px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  transition: 0.5s all ease-in-out;
+}
+.video-box video:hover {
+  transform: scale(1.04);
+}
+/*------------------Background Slider------------------ */
+@keyframes slide {
+  33% {
+    background-image: url('../img/4.jpg');
+  }
+
+  66% {
+    background-image: url('../img/5.jpg');
+  }
+
+  100% {
+    background-image: url('../img/6a.jpg');
+  }
+}
